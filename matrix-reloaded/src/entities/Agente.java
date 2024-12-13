@@ -1,12 +1,17 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Agente extends Entidad {
     private String habilidadEspecial;
     private String misionAsignada;
+    private List<String> recompensas;
 
     public Agente(int id, String nombre, String habilidadEspecial) {
         super(id, nombre);
         this.habilidadEspecial = habilidadEspecial;
+        this.recompensas = new ArrayList<>();
     }
 
     public String getHabilidadEspecial() {
@@ -25,9 +30,18 @@ public class Agente extends Entidad {
         this.misionAsignada = mision;
     }
 
+    public void registrarRecompensa(String recompensa) {
+        this.recompensas.add(recompensa);
+    }
+
+    public List<String> getRecompensas() {
+        return recompensas;
+    }
+
     @Override
     public String toString() {
         return super.toString() + ", Habilidad Especial: " + habilidadEspecial +
-                (misionAsignada != null ? ", Misión: " + misionAsignada : "");
+                (misionAsignada != null ? ", Misión: " + misionAsignada : "") +
+                ", Recompensas: " + recompensas.toString();
     }
 }

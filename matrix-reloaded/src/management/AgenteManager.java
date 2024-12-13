@@ -12,16 +12,32 @@ public class AgenteManager {
         this.agentes = new ArrayList<>();
     }
 
-    public void registrarAgente() {
+    public void registrarAgente(Agente agente) {
+        agentes.add(agente);
+        agente.registrarRecompensa("Medalla");
+        System.out.println("Agente registrado con éxito: " + agente.getNombre());
+    }
+
+    public void registrarAgenteInteractivo() {
         int id = ConsoleUtils.leerEntero("Ingrese el ID del agente: ");
-        ConsoleUtils.limpiarBuffer(); // Consumir cualquier salto de línea residual
+        ConsoleUtils.limpiarBuffer();
 
         String nombre = ConsoleUtils.leerTexto("Ingrese el nombre del agente: ");
         String habilidad = ConsoleUtils.leerTexto("Ingrese la habilidad especial del agente: ");
 
         Agente nuevoAgente = new Agente(id, nombre, habilidad);
         agentes.add(nuevoAgente);
-        System.out.println("Agente registrado con éxito.");
+        nuevoAgente.registrarRecompensa("Medalla");
+        System.out.println("Agente registrado con éxito: " + nuevoAgente.getNombre());
+    }
+
+    public Agente buscarAgentePorId(int id) {
+        for (Agente agente : agentes) {
+            if (agente.getId() == id) {
+                return agente;
+            }
+        }
+        return null;
     }
 
     public void mostrarAgentes() {
@@ -43,10 +59,10 @@ public class AgenteManager {
             System.out.println("2. Mostrar Agentes");
             System.out.println("3. Salir");
             int opcion = ConsoleUtils.leerEntero("Seleccione una opción: ");
-            ConsoleUtils.limpiarBuffer(); // Consumir cualquier salto de línea residual
+            ConsoleUtils.limpiarBuffer();
 
             switch (opcion) {
-                case 1 -> registrarAgente();
+                case 1 -> registrarAgenteInteractivo();
                 case 2 -> mostrarAgentes();
                 case 3 -> continuar = false;
                 default -> System.out.println("Opción no válida.");
